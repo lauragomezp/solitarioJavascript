@@ -7,6 +7,7 @@ function empezarJuego() {
     const mazo = crearMazo()
     const  barajado = desordenarMazo(mazo)
     servirMazo(barajado)
+    colocarCartasMazo(barajado)
     console.log(barajado)
 }
 
@@ -97,28 +98,44 @@ function colocarCartas(pilas){
         const pila = document.getElementById("pila-"+i)
         for (let j = 0; j<pilas[i].length; j++){
             const carta = pilas[i][j]
-
-            const cartaHTML= document.createElement("div")
-            const imagen = document.createElement("img")
-
             const ultimaCartaPila = j === pilas[i].length-1
-
             if (ultimaCartaPila){
                 carta.bocaAbajo = false;
             }
-
-            if (carta.bocaAbajo){
-                imagen.src = "img/dorso.png"
-            }else{
-                imagen.src = carta.img
-            }
-            
-            cartaHTML.classList.add("carta")
-            cartaHTML.style.bottom = j*120+"px"
-            cartaHTML.appendChild(imagen)
-            pila.appendChild(cartaHTML)
+           cartaHTML = crearCartaHTML(carta);
+           cartaHTML.classList.add("carta")
+           cartaHTML.style.bottom = j*120+"px"
+           pila.appendChild(cartaHTML)
         }
     }
+
+}
+
+function colocarCartasMazo(barajado){
+
+    const divMazoBarajado = document.getElementById("mazoBarajado")
+
+    for (let i=0; i<barajado.length; i++){
+        carta=barajado[i]
+        cartaHTML = crearCartaHTML(carta);
+        divMazoBarajado.appendChild(cartaHTML);
+        cartaHTML.classList.add("cartaMazoBarajado")
+    }
+}
+
+function crearCartaHTML(carta){
+
+    const cartaHTML= document.createElement("div")
+    const imagen = document.createElement("img")
+    if (carta.bocaAbajo){
+        imagen.src = "img/dorso.png"
+    }else{
+        imagen.src = carta.img
+    }
+            
+    cartaHTML.appendChild(imagen)
+
+    return cartaHTML;
 
 }
 

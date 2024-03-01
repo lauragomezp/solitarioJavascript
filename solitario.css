@@ -9,3 +9,18 @@ body{
 .carta{
     position:relative;
 }
+
+.mazoBarajado{
+
+}
+
+.cartaMazoBarajado{
+
+    display: inline;
+    position: absolute;
+
+}
+
+.mesaSuperior{
+    height: 200px;
+}
