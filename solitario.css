@@ -30,3 +30,7 @@ body{
     margin-top: 20px;
     height: 180px;
 }
+
+.hide{
+    display: none;
+}

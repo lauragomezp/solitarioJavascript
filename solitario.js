@@ -9,6 +9,7 @@ function empezarJuego() {
     servirMazo(barajado)
     colocarCartasMazo(barajado)
     console.log(barajado)
+    jugada(cartaHTML)
 }
 
 function servirMazo(barajado){
@@ -148,13 +149,14 @@ Cuando un usuario hace click a una carta
 saber si puede moverla y moverla
 */
 
-function comprobarClickCarta(carta){
-    let primeraCartaClickeada = null;
-    if (primeraCartaClickeada){
+function jugada(cartaHTML){
+    circle1.onclick = function()
+    cartaClickeada = 
 
-    }else{
-        primeraCartaClickeada = carta
-        carta.style.border = "2px solid red"
-    }
+    cartaHTML.addEventListener('dragstart',dragStart)
 
+}
+
+function dragStart(e){
+    console.log("Drag starts")
 }
