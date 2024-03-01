@@ -5,3 +5,7 @@ body{
 .mesa{
     display: flex;
 }
+
+.carta{
+    position:relative;
+}

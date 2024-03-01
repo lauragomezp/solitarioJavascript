@@ -55,7 +55,8 @@ function crearMazo() {
                 numero: i,
                 color: color[tipos[j]],
                 tipo: tipos[j],
-                img: "img/"+i+"_de_"+tipos[j]+".png"
+                img: "img/"+i+"_de_"+tipos[j]+".png",
+                bocaAbajo: true
             }
             mazo.push(carta)
 
@@ -70,7 +71,17 @@ function crearMazo() {
 
 function desordenarMazo(mazo){
 
-    mazo.sort(() => Math.random() - 0.5);
+    n = mazo.length-1
+    let aux;
+    while (n > 0){
+
+        r = Math.floor(Math.random()*n+1)
+        aux = mazo[r]
+        mazo[r] = mazo[n]
+        mazo[n] = aux
+        n-=1
+
+    }
 
     return mazo
 
@@ -89,7 +100,21 @@ function colocarCartas(pilas){
 
             const cartaHTML= document.createElement("div")
             const imagen = document.createElement("img")
-            imagen.src = carta.img
+
+            const ultimaCartaPila = j === pilas[i].length-1
+
+            if (ultimaCartaPila){
+                carta.bocaAbajo = false;
+            }
+
+            if (carta.bocaAbajo){
+                imagen.src = "img/dorso.png"
+            }else{
+                imagen.src = carta.img
+            }
+            
+            cartaHTML.classList.add("carta")
+            cartaHTML.style.bottom = j*120+"px"
             cartaHTML.appendChild(imagen)
             pila.appendChild(cartaHTML)
         }
