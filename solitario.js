@@ -132,10 +132,29 @@ function crearCartaHTML(carta){
     }else{
         imagen.src = carta.img
     }
-            
+
     cartaHTML.appendChild(imagen)
+
+    cartaHTML.draggable="true";
+
+    //https://www.freecodecamp.org/espanol/news/centrar-en-html-div-con-css/
 
     return cartaHTML;
 
 }
 
+/*
+Cuando un usuario hace click a una carta 
+saber si puede moverla y moverla
+*/
+
+function comprobarClickCarta(carta){
+    let primeraCartaClickeada = null;
+    if (primeraCartaClickeada){
+
+    }else{
+        primeraCartaClickeada = carta
+        carta.style.border = "2px solid red"
+    }
+
+}

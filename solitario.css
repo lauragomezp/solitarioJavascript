@@ -2,6 +2,11 @@ body{
     background-color: black;
 }
 
+.tablero{
+    width: 800px;
+    margin: 0 auto;
+}
+
 .mesa{
     display: flex;
 }
@@ -22,5 +27,6 @@ body{
 }
 
 .mesaSuperior{
-    height: 200px;
+    margin-top: 20px;
+    height: 180px;
 }
