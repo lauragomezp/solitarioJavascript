@@ -89,9 +89,13 @@ function colocarCartas(pilas){
 
             const cartaHTML= document.createElement("div")
             const imagen = document.createElement("img")
+            cartaHTML.classList.add(carta)
+            cartaHTML.style.bottom = j*100+"px"
             imagen.src = carta.img
             cartaHTML.appendChild(imagen)
             pila.appendChild(cartaHTML)
+            
+
         }
     }
 
