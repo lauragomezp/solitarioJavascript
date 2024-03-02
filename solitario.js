@@ -7,7 +7,9 @@ function empezarJuego() {
     const mazo = crearMazo()
     const  barajado = desordenarMazo(mazo)
     servirMazo(barajado)
+    colocarCartasMazo(barajado)
     console.log(barajado)
+    jugada(cartaHTML)
 }
 
 function servirMazo(barajado){
@@ -55,7 +57,8 @@ function crearMazo() {
                 numero: i,
                 color: color[tipos[j]],
                 tipo: tipos[j],
-                img: "img/"+i+"_de_"+tipos[j]+".png"
+                img: "img/"+i+"_de_"+tipos[j]+".png",
+                bocaAbajo: true
             }
             mazo.push(carta)
 
@@ -70,7 +73,17 @@ function crearMazo() {
 
 function desordenarMazo(mazo){
 
-    mazo.sort(() => Math.random() - 0.5);
+    n = mazo.length-1
+    let aux;
+    while (n > 0){
+
+        r = Math.floor(Math.random()*n+1)
+        aux = mazo[r]
+        mazo[r] = mazo[n]
+        mazo[n] = aux
+        n-=1
+
+    }
 
     return mazo
 
@@ -86,18 +99,64 @@ function colocarCartas(pilas){
         const pila = document.getElementById("pila-"+i)
         for (let j = 0; j<pilas[i].length; j++){
             const carta = pilas[i][j]
-
-            const cartaHTML= document.createElement("div")
-            const imagen = document.createElement("img")
-            cartaHTML.classList.add(carta)
-            cartaHTML.style.bottom = j*100+"px"
-            imagen.src = carta.img
-            cartaHTML.appendChild(imagen)
-            pila.appendChild(cartaHTML)
-            
-
+            const ultimaCartaPila = j === pilas[i].length-1
+            if (ultimaCartaPila){
+                carta.bocaAbajo = false;
+            }
+           cartaHTML = crearCartaHTML(carta);
+           cartaHTML.classList.add("carta")
+           cartaHTML.style.bottom = j*120+"px"
+           pila.appendChild(cartaHTML)
         }
     }
 
 }
 
+function colocarCartasMazo(barajado){
+
+    const divMazoBarajado = document.getElementById("mazoBarajado")
+
+    for (let i=0; i<barajado.length; i++){
+        carta=barajado[i]
+        cartaHTML = crearCartaHTML(carta);
+        divMazoBarajado.appendChild(cartaHTML);
+        cartaHTML.classList.add("cartaMazoBarajado")
+    }
+}
+
+function crearCartaHTML(carta){
+
+    const cartaHTML= document.createElement("div")
+    const imagen = document.createElement("img")
+    if (carta.bocaAbajo){
+        imagen.src = "img/dorso.png"
+    }else{
+        imagen.src = carta.img
+    }
+
+    cartaHTML.appendChild(imagen)
+
+    cartaHTML.draggable="true";
+
+    //https://www.freecodecamp.org/espanol/news/centrar-en-html-div-con-css/
+
+    return cartaHTML;
+
+}
+
+/*
+Cuando un usuario hace click a una carta 
+saber si puede moverla y moverla
+*/
+
+function jugada(cartaHTML){
+    circle1.onclick = function()
+    cartaClickeada = 
+
+    cartaHTML.addEventListener('dragstart',dragStart)
+
+}
+
+function dragStart(e){
+    console.log("Drag starts")
+}

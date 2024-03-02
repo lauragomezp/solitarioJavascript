@@ -2,6 +2,35 @@ body{
     background-color: black;
 }
 
+.tablero{
+    width: 800px;
+    margin: 0 auto;
+}
+
 .mesa{
     display: flex;
+}
+
+.carta{
+    position:relative;
+}
+
+.mazoBarajado{
+
+}
+
+.cartaMazoBarajado{
+
+    display: inline;
+    position: absolute;
+
+}
+
+.mesaSuperior{
+    margin-top: 20px;
+    height: 180px;
+}
+
+.hide{
+    display: none;
 }
