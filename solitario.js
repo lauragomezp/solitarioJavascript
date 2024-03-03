@@ -3,13 +3,18 @@ la primera carta cliqueada debe de tener exactamente un número menos
 y ser de un color distinto a la segunda carta cliqueada
 */
 
+var carta
+var mazo =  []
+var barajado = []
+var pilas = []
+
+
 function empezarJuego() {
-    const mazo = crearMazo()
-    const  barajado = desordenarMazo(mazo)
+    mazo = crearMazo()
+    barajado = desordenarMazo(mazo)
     servirMazo(barajado)
     colocarCartasMazo(barajado)
     console.log(barajado)
-    jugada(cartaHTML)
 }
 
 function servirMazo(barajado){
@@ -18,8 +23,6 @@ function servirMazo(barajado){
     quita una carta del mazo barajado
     y la agrega a una pila
     */
-
-    const pilas = []
 
     for (let i=0; i<7; i++){
         pilas.push([])
@@ -41,7 +44,6 @@ function crearMazo() {
     Crea un mazo de 52 cartas y las baraja
     */
 
-    const mazo = []
     const tipos = ["treboles", "corazones", "picas", "diamantes"]
     const color = {
         corazones: "rojo",
@@ -58,7 +60,7 @@ function crearMazo() {
                 color: color[tipos[j]],
                 tipo: tipos[j],
                 img: "img/"+i+"_de_"+tipos[j]+".png",
-                bocaAbajo: true
+                bocaArriba: false
             }
             mazo.push(carta)
 
@@ -101,10 +103,10 @@ function colocarCartas(pilas){
             const carta = pilas[i][j]
             const ultimaCartaPila = j === pilas[i].length-1
             if (ultimaCartaPila){
-                carta.bocaAbajo = false;
+                carta.bocaArriba = true
             }
            cartaHTML = crearCartaHTML(carta);
-           cartaHTML.classList.add("carta")
+           cartaHTML.classList.add("cartaMesa")
            cartaHTML.style.bottom = j*120+"px"
            pila.appendChild(cartaHTML)
         }
@@ -122,19 +124,22 @@ function colocarCartasMazo(barajado){
         divMazoBarajado.appendChild(cartaHTML);
         cartaHTML.classList.add("cartaMazoBarajado")
     }
+
 }
 
 function crearCartaHTML(carta){
 
     const cartaHTML= document.createElement("div")
     const imagen = document.createElement("img")
-    if (carta.bocaAbajo){
-        imagen.src = "img/dorso.png"
-    }else{
+    if (carta.bocaArriba){
         imagen.src = carta.img
+    }else{
+        imagen.src = "img/dorso.png"
     }
 
     cartaHTML.appendChild(imagen)
+
+    cartaHTML.onclick=jugada(carta, cartaHTML)
 
     cartaHTML.draggable="true";
 
@@ -149,14 +154,64 @@ Cuando un usuario hace click a una carta
 saber si puede moverla y moverla
 */
 
-function jugada(cartaHTML){
-    circle1.onclick = function()
-    cartaClickeada = 
+function jugada(carta, cartaHTML){
 
-    cartaHTML.addEventListener('dragstart',dragStart)
+    isCartaJugable = carta.bocaArriba
+    cartaJugable = carta
+
+    if (!isCartaJugable){
+
+    }else{
+        cartaHTML.addEventListener('dragstart',DragEvent)
+        cartaHTML.style.border="solid 8px red"
+        for (let i = 0; i<pilas.length; i++){
+            if (pilas[i].bocaArriba && cartaJugable.numero == pilas[i].numero-1 && cartaJugable.color != pilas[i].color){
+                cartaDestino = pilas[i]
+                cartaHTML.style.border="solid 8px green"
+                cartaHTML.addEventListener('dragenter', dragEnter)
+                cartaHTML.addEventListener('dragover', dragOver);
+                cartaHTML.addEventListener('dragleave', dragLeave);
+                cartaHTML.addEventListener('drop', drop);
+            }
+        }
+    }
 
 }
 
-function dragStart(e){
+function DragEvent(e){
     console.log("Drag starts")
+    e.dataTransfer.setData("text/plain", e.target.id)
+}
+
+/*function cartaValida(cartaDestino, cartaJugable, cartaHTML){
+
+    if (cartaJugable.dataset.numero == cartaDestino.dataset.numero-1 
+        && cartaDestino.dataset.color !== cartaJugable.dataset.color){
+            cartaHTML.addEventListener('dragenter', dragEnter)
+            cartaHTML.addEventListener('dragover', dragOver);
+            cartaHTML.addEventListener('dragleave', dragLeave);
+            cartaHTML.addEventListener('drop', drop);
+            return cartaHTML
+        }
+
+}
+
+function dragEnter(e) {
+}
+
+function dragOver(e) {
+}
+
+function dragLeave(e) {
+}*/
+
+function drop(e) {
+    
+    const id = e.dataTransfer.getData('text/plain');
+    const draggable = document.getElementById(id);
+
+    // add it to the drop target
+    e.target.appendChild(draggable);
+
+    
 }

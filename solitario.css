@@ -11,7 +11,7 @@ body{
     display: flex;
 }
 
-.carta{
+.cartaMesa{
     position:relative;
 }
 
@@ -29,8 +29,4 @@ body{
 .mesaSuperior{
     margin-top: 20px;
     height: 180px;
-}
-
-.hide{
-    display: none;
 }
